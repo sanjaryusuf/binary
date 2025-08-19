@@ -1,0 +1,106 @@
+# --- Dastur: Binary, Decimal, Hexadecimal va ASCII aylantiruvchi ---
+# Kutubxona import qilamiz
+import sys  # dasturdan chiqish uchun
+
+# --- FUNKSIYALAR ---
+
+def binary_to_decimal(bin_str):
+    """Binary stringni decimalga aylantiradi va qadamlarni ko'rsatadi"""
+    bin_str = bin_str.zfill(8)  # 8 bitga to'ldirish
+    weights = [128, 64, 32, 16, 8, 4, 2, 1]  # har bir bit og'irligi
+    print("\nBinary -> Decimal hisoblash:")
+    print("Bitlar ustun: ", ' '.join(bin_str))
+    print("Og‘irliklar: ", ' '.join(map(str, weights)))
+    calc = [int(b)*w for b,w in zip(bin_str, weights)]
+    print("Hisoblash: ", ' + '.join(map(str, calc)), "=", sum(calc))
+    return sum(calc)
+
+def decimal_to_binary(decimal):
+    """Decimalni binaryga aylantiradi va qadamlarni ko'rsatadi"""
+    decimal = int(decimal)
+    print("\nDecimal -> Binary hisoblash:")
+    print("Decimal:", decimal)
+    binary = ''
+    steps = []
+    n = decimal
+    while n > 0:
+        binary = str(n % 2) + binary
+        steps.append(f"{n} / 2 = {n//2}  rem {n%2}")
+        n = n // 2
+    binary = binary.zfill(8)  # 8 bitga to'ldirish
+    print("Binary (8 bit):", binary)
+    print("Hisoblash qadamlar:")
+    for step in steps:
+        print(step)
+    return binary
+
+def decimal_to_hex(decimal):
+    """Decimalni hexadecimalga aylantiradi"""
+    decimal = int(decimal)
+    hex_str = hex(decimal)[2:].upper()  # Hex string va katta harf
+    print(f"\nDecimal {decimal} -> Hexadecimal: {hex_str}")
+    return hex_str
+
+def hex_to_decimal(hex_str):
+    """Hexadecimalni decimalga aylantiradi"""
+    decimal = int(hex_str, 16)
+    print(f"\nHexadecimal {hex_str.upper()} -> Decimal: {decimal}")
+    return decimal
+
+def show_ascii():
+    """0-127 ASCII jadvalini chiqaradi"""
+    print("\nDec  Char  = Name / Meaning")
+    ascii_table = [
+        ("NUL","Null"),("SOH","Start of Heading"),("STX","Start of Text"),
+        ("ETX","End of Text"),("EOT","End of Transmission"),("ENQ","Enquiry"),
+        ("ACK","Acknowledge"),("BEL","Bell"),("BS","Backspace"),
+        ("TAB","Horizontal Tab"),("LF","Line Feed"),("VT","Vertical Tab"),
+        ("FF","Form Feed"),("CR","Carriage Return"),("SO","Shift Out"),
+        ("SI","Shift In"),("DLE","Data Link Escape"),("DC1","Device Control 1"),
+        ("DC2","Device Control 2"),("DC3","Device Control 3"),("DC4","Device Control 4"),
+        ("NAK","Negative Acknowledge"),("SYN","Synchronous Idle"),("ETB","End of Transmit Block"),
+        ("CAN","Cancel"),("EM","End of Medium"),("SUB","Substitute"),
+        ("ESC","Escape"),("FS","File Separator"),("GS","Group Separator"),
+        ("RS","Record Separator"),("US","Unit Separator")
+    ]
+    for i in range(32):
+        print(f"{i:3}  {ascii_table[i][0]:3} = {ascii_table[i][1]}")
+    for i in range(32,127):
+        print(f"{i:3}  {chr(i)}")
+    print("127  DEL = Delete")
+
+# --- FOYDALANUVCHI INTERFEYSI ---
+def main():
+    while True:
+        print("\n--- Aylantiruvchi dastur ---")
+        print("1. Binary -> Decimal")
+        print("2. Decimal -> Binary")
+        print("3. Decimal -> Hexadecimal")
+        print("4. Hexadecimal -> Decimal")
+        print("5. ASCII jadval")
+        print("0. Chiqish")
+        choice = input("Tanlang: ")
+
+        if choice == "1":
+            b = input("Binary (8 bit) kiriting: ")
+            binary_to_decimal(b)
+        elif choice == "2":
+            d = input("Decimal kiriting: ")
+            decimal_to_binary(d)
+        elif choice == "3":
+            d = input("Decimal kiriting: ")
+            decimal_to_hex(d)
+        elif choice == "4":
+            h = input("Hexadecimal kiriting: ")
+            hex_to_decimal(h)
+        elif choice == "5":
+            show_ascii()
+        elif choice == "0":
+            print("Dastur tugadi.")
+            sys.exit()
+        else:
+            print("Noto‘g‘ri tanlov!")
+
+# --- Dastur ishga tushishi ---
+if __name__ == "__main__":
+    main()
