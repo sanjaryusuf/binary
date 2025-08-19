@@ -1,0 +1,33 @@
+Binary Arifmetika
+
+Binary qo‘shish
+Binary qo‘shish odatiy qo‘shishga o‘xshaydi, faqat ikkita raqam (0 va 1) bilan:
+	•	0 + 0 = 0
+	•	0 + 1 = 1
+	•	1 + 0 = 1
+	•	1 + 1 = 10 (ya’ni 0, qo‘lda 1 o‘tadi)
+  1011   (11)
++ 1101   (13)
+------
+ 11000   (24)
+
+Binary ayrish
+Qoidasi decimalga o‘xshaydi, lekin faqat 0 va 1 ishlatiladi. Agar 0 - 1 bo‘lsa, yonidan qarz olamiz.
+ 1010   (10)
+-0011   (3)
+-----
+ 0111   (7)
+
+Binary ko‘paytirish
+
+Xuddi maktabdagi ko‘paytirishga o‘xshaydi, faqat 0 va 1 ishlatiladi:
+	•	0 × 0 = 0
+	•	1 × 0 = 0
+	•	1 × 1 = 1
+   101   (5)
+×   11   (3)
+------
+   101   (5 × 1)
++ 1010   (5 × 1, lekin chapga siljiydi)
+------
+  1111   (15)
