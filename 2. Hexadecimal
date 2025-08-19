@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Aug 19 08:16:21 2025
+
+@author: sanjar
+"""
+
+# ===============================================
+#       HEXADECIMAL ↔ DECIMAL ↔ BINARY
+# ===============================================
+
+# Hex → Decimal
+def hex_to_decimal_verbose(hex_str):
+    """Hexadecimal sonni decimalga aylantiradi."""
+    hex_str = hex_str.upper()  # katta harfga o‘tkazamiz
+    hex_digits = '0123456789ABCDEF'
+    
+    decimal = 0
+    print(f"\nHex {hex_str} ni decimalga aylantirish:")
+    print("Pozitsiya (n) : Harf/raqam → qiymat × 16**n")
+    
+    length = len(hex_str)
+    explanation = []
+    for i, char in enumerate(hex_str):
+        val = hex_digits.index(char)
+        power = length - i - 1
+        calc = val * (16 ** power)
+        explanation.append(str(calc))
+        print(f"Pos {power:>2}: {char} → {val} × 16^{power} = {calc}")
+        decimal += calc
+        
+    print("Hisoblash: " + " + ".join(explanation) + f" = {decimal}")
+    return decimal
+
+# Decimal → Hex
+def decimal_to_hex_verbose(n):
+    """Decimal sonni hexadecimalga aylantiradi."""
+    if n == 0:
+        print("0 → 0")
+        return "0"
+    
+    hex_digits = '0123456789ABCDEF'
+    hex_str = ""
+    x = n
+    print(f"\nDecimal {n} ni hexadecimalga aylantirish:")
+    print("x : 16 = x//16 , qoldiq")
+    
+    while x > 0:
+        remainder = x % 16
+        print(f"{x:>4} : 16 = {x//16:>4} , qoldiq = {hex_digits[remainder]}")
+        hex_str = hex_digits[remainder] + hex_str
+        x //= 16
+    
+    print(f"Natija → Hex: {hex_str}")
+    return hex_str
+
+# Hex → Binary (via Decimal)
+def hex_to_binary_verbose(hex_str):
+    decimal = hex_to_decimal_verbose(hex_str)
+    return decimal_to_binary_verbose(decimal)
+
+# Decimal → Binary (izohlash bilan)
+def decimal_to_binary_verbose(n):
+    if n == 0:
+        print("0 → 0")
+        return "0"
+    
+    binary = ""
+    x = n
+    print(f"\nDecimal {n} ni binaryga aylantirish:")
+    print("x : 2 = x//2 , qoldiq")
+    
+    while x > 0:
+        remainder = x % 2
+        print(f"{x:>3} : 2 = {x//2:>3} , qoldiq = {remainder}")
+        binary = str(remainder) + binary
+        x //= 2
+    
+    print(f"Natija → Binary: {binary}")
+    return binary
+
+# ===============================================
+#               Interaktiv Dastur
+# ===============================================
+
+print("===============================================")
+print("      HEXADECIMAL ↔ DECIMAL ↔ BINARY KONVERTATOR")
+print("===============================================")
+
+while True:
+    print("\nNimani kiritmoqchisiz?")
+    choice = input("Hex (H) yoki Decimal (D)? ").strip().upper()
+    
+    if choice == "D":
+        dec_input = input("Decimal son kiriting: ").strip()
+        if not dec_input.isdigit():
+            print("Iltimos, faqat ijobiy son kiriting!")
+            continue
+        dec_input = int(dec_input)
+        decimal_to_hex_verbose(dec_input)
+        decimal_to_binary_verbose(dec_input)
+        
+    elif choice == "H":
+        hex_input = input("Hexadecimal son kiriting: ").strip()
+        if not all(c in '0123456789abcdefABCDEF' for c in hex_input):
+            print("Iltimos, faqat 0-9 va A-F (a-f) dan iborat son kiriting!")
+            continue
+        decimal_value = hex_to_decimal_verbose(hex_input)
+        decimal_to_binary_verbose(decimal_value)
+        
+    else:
+        print("Noto‘g‘ri tanlov! H yoki D kiriting.")
+        continue
+
+    cont = input("\nYana bir son kiritasizmi? (H/N): ").strip().upper()
+    if cont != "H":
+        print("Dastur yakunlandi. Salomat bo‘ling! ✅")
+        break
