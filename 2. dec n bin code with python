@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Aug 19 07:32:45 2025
+
+@author: sanjar
+"""
+
+# ===============================================
+#         BINARY ↔ DECIMAL KONVERTATOR
+# ===============================================
+
+def decimal_to_binary_verbose(n):
+    """Decimal sonni binaryga ustun shaklda aylantiradi."""
+    if n == 0:
+        print("0 → 0")
+        return "0"
+    
+    binary = ""
+    x = n
+    print(f"\nDecimal {n} ni binaryga aylantirish:")
+    print("x : 2 = x//2 , qoldiq")
+    
+    # Decimalni binaryga aylantirish qadam-baqadam
+    while x > 0:
+        remainder = x % 2
+        print(f"{x:>3} : 2 = {x//2:>3} , qoldiq = {remainder}")
+        binary = str(remainder) + binary
+        x //= 2
+    
+    print(f"Natija → Binary: {binary}")
+    return binary
+
+def binary_to_decimal_verbose(b):
+    """Binary sonni decimalga ustun shaklda aylantiradi."""
+    weights = [128,64,32,16,8,4,2,1]  # 8 bitli og‘irliklar
+    b = b.zfill(8)  # 8 bitga to‘ldiramiz
+    
+    # Bitlar va og‘irliklarni tekislangan formatlash
+    bit_str = " ".join(f"{bit:>3}" for bit in b)
+    weight_str = " ".join(f"{w:>3}" for w in weights)
+    
+    print(f"\nBinary {b} ni decimalga aylantirish:")
+    print("Bitlar ustun: ", bit_str)
+    print("Og‘irliklar: ", weight_str)
+    
+    # Hisoblash qadam-baqadam
+    decimal = 0
+    explanation = []
+    for bit, weight in zip(b, weights):
+        val = int(bit) * weight
+        explanation.append(f"{val:>3}")
+        decimal += val
+    print("Hisoblash: ", " + ".join(explanation), f"= {decimal}")
+    return decimal
+
+# ===============================================
+#               Interaktiv Dastur
+# ===============================================
+
+print("===============================================")
+print("      BINARY ↔ DECIMAL KONVERTATOR")
+print("===============================================")
+
+while True:
+    print("\nNimani kiritmoqchisiz?")
+    choice = input("Decimal (D) yoki Binary (B)? ").strip().upper()
+    
+    if choice == "D":
+        dec_input = input("Decimal son kiriting: ").strip()
+        if not dec_input.isdigit():
+            print("Iltimos, faqat ijobiy son kiriting!")
+            continue
+        dec_input = int(dec_input)
+        decimal_to_binary_verbose(dec_input)
+        
+    elif choice == "B":
+        bin_input = input("Binary son kiriting (maks 8 bit): ").strip()
+        if not all(c in "01" for c in bin_input) or len(bin_input) > 8:
+            print("Iltimos, faqat 0 va 1 dan iborat, 8 bitgacha bo‘lgan son kiriting!")
+            continue
+        binary_to_decimal_verbose(bin_input)
+        
+    else:
+        print("Noto‘g‘ri tanlov! D yoki B kiriting.")
+        continue
+
+    # Foydalanuvchi yana davom etishni xohlasa
+    cont = input("\nYana bir son kiritasizmi? (H/N): ").strip().upper()
+    if cont != "H":
+        print("Dastur yakunlandi. Salomat bo‘ling! ✅")
+        break
