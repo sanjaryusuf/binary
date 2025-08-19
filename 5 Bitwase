@@ -1,0 +1,33 @@
+Bitwise
+
+AND (&)
+Faqat ikkala bit 1 bo‘lsa → 1 bo‘ladi.
+1010
+1100
+---- AND
+1000 
+👉 Decimalda: 10 & 12 = 8
+
+
+OR (|)
+Kamida bitta bit 1 bo‘lsa → 1 bo‘ladi.
+1010
+1100
+---- OR
+1110 
+👉 Decimalda: 10 | 12 = 14
+
+
+XOR (^)
+Faqat bitta bit 1 bo‘lsa → 1 bo‘ladi (har xil bo‘lsa 1).
+1010
+1100
+---- XOR
+0110
+👉 Decimalda: 10 ^ 12 = 6
+
+
+NOT (~)
+Barcha bitlarni teskarisiga aylantiradi.
+1010 → 0101
+👉 Decimalda: ~10 → (kompyuterda 2’s complement ishlatiladi, natija -11 chiqadi).
